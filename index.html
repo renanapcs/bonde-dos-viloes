@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOND DOS VILÕES - ALCATEIA</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #000;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            font-family: 'Orbitron', sans-serif;
+            cursor: crosshair;
+        }
+
+        .album-container {
+            position: relative;
+            width: 3000px;
+            height: 3000px;
+            background: linear-gradient(45deg, #0a0a0a, #1a1a1a);
+            border: 5px solid #00ffff;
+            box-shadow: 0 0 50px rgba(0, 255, 255, 0.5);
+            transition: transform 0.5s;
+            overflow: hidden;
+        }
+
+        .neon-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 8em;
+            color: #ff00ff;
+            text-shadow: 0 0 20px #ff00ff;
+            animation: neonPulse 2s infinite;
+        }
+
+        .vinyl {
+            position: absolute;
+            width: 1200px;
+            height: 1200px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #111 60%, #000 100%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 15px solid #00ffff;
+            transition: transform 0.5s;
+        }
+
+        .vinyl::after {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: #00ffff;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .track-list {
+            position: absolute;
+            bottom: 100px;
+            left: 100px;
+            color: #00ffff;
+            font-size: 2em;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .hover-zone {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+        }
+
+        @keyframes neonPulse {
+            0%, 100% { text-shadow: 0 0 20px #ff00ff; }
+            50% { text-shadow: 0 0 40px #ff00ff, 0 0 60px #ff00ff; }
+        }
+
+        /* Efeitos de Interatividade */
+        .album-container:hover {
+            transform: rotate(2deg) scale(1.02);
+        }
+
+        .hover-zone:hover + .track-list {
+            opacity: 1;
+        }
+
+        .vinyl:hover {
+            transform: translate(-50%, -50%) rotate(360deg);
+            cursor: pointer;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="album-container">
+        <div class="vinyl"></div>
+        <div class="neon-text">BOND DOS VILÕES</div>
+        <div class="hover-zone"></div>
+        <div class="track-list">
+            <h2>TRACKS</h2>
+            <p>1. VILÃOZIN DO FLOW</p>
+            <p>2. ALCATEIA ANTHEM</p>
+            <p>3. BOND STREET</p>
+            <!-- Adicione mais faixas -->
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const album = document.querySelector('.album-container');
+            const vinyl = document.querySelector('.vinyl');
+            
+            // Efeito Parallax
+            document.addEventListener('mousemove', (e) => {
+                const xAxis = (window.innerWidth / 2 - e.pageX) / 50;
+                const yAxis = (window.innerHeight / 2 - e.pageY) / 50;
+                album.style.transform = `rotate3d(${yAxis}, ${xAxis}, 0, 10deg)`;
+            });
+
+            // Rotação do Vinil
+            let rotate = 0;
+            vinyl.addEventListener('click', () => {
+                rotate += 360;
+                vinyl.style.transform = `translate(-50%, -50%) rotate(${rotate}deg)`;
+            });
+
+            // Efeito de Código Binário
+            setInterval(() => {
+                const binary = document.createElement('div');
+                binary.style.position = 'absolute';
+                binary.style.color = '#00ff00';
+                binary.style.left = Math.random() * 3000 + 'px';
+                binary.style.top = Math.random() * 3000 + 'px';
+                binary.textContent = Math.random().toString(2).substr(2, 8);
+                album.appendChild(binary);
+                
+                setTimeout(() => binary.remove(), 2000);
+            }, 100);
+        });
+    </script>
+</body>
+</html>
